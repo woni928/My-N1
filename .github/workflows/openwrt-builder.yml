@@ -114,52 +114,52 @@ jobs:
         echo "列出空间占用前10的目录或文件："
         sudo du -h --max-depth=1 /workdir |sort -nr | head -10
 
-    - name: 打包镜像文件
-      if: ${{ env.compile_status }} == 'success' && !cancelled()
+    - name: 打包内核
       uses: unifreq/openwrt_packit@master
       env:
-        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
-        KERNEL_VERSION_NAME: 5.4.y_6.6.y
+        WHOAMI: ham
+       # OPENWRT_VER: R23.7.7
+        OPENWRT_ARMVIRT: openwrt-armvirt/*.tar.gz
         PACKAGE_SOC: s905d
-        GZIP_IMGS: .xz
-        SCRIPT_DIY_PATH: N1/mk_s905d_n1.sh
-        WHOAMI: woni928
-        OPENWRT_VER: $(date +"%Y.%m.%d")
-        SW_FLOWOFFLOAD: 0
-        SFE_FLOW: 0
-        ENABLE_WIFI_K510: 0
-
-    - name: 生成发布标签
-      if: ${{ env.PACKAGED_STATUS == 'success' }} && !cancelled()
-      run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H.%M")" >> ${GITHUB_OUTPUT}
-        touch release.txt
-        echo "
-        🍁 注意事项：首次使用建议全新刷写
-          
-        💻 适用机型: 斐讯N1
-
-        📂 源码: ${{ env.REPO_URL }}
-
-        🌳 分支: ${{ env.REPO_BRANCH }}
-
-        ⏱️ 编译时间: $(date +"%Y年%m月%d日%H时%M分")
-
-        🌐 管理地址: 192.168.123.2
-
-        👤 用户名: root
-
-        🔒 密码: password 
+        KERNEL_AUTO_LATEST: true
+       # KERNEL_REPO_URL: https://github.com/ham0223/OpenWRT-N1/tree/main/opt
+        KERNEL_VERSION_NAME: 5.4._6.1.
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
         
-        " >> release.txt
-        echo "tag_status=success" >> $GITHUB_ENV
+    - name: 整理文件
+      run: mv /opt/openwrt_packit/output/* /workdir/upload/
 
-    - name: 发布固件到 Releases
-      uses: softprops/action-gh-release@v2
-      if: ${{ env.tag_status == 'success' }} && !cancelled()
+    - name: 发布固件
+      uses: ncipollo/release-action@v1
       with:
-        tag_name: OpenWrt_${{ env.PACKAGED_OUTPUTDATE }}
-        files: ${{ env.PACKAGED_OUTPUTPATH }}/*.img.xz
-        body_path: release.txt
-        token: ${{ env.GITHUB_TOKEN }}
+        name: OpenWrt-N1 → ${{ env.DATE }}
+        tag: N1-1907_${{ env.tag_name }}
+        artifacts: /workdir/upload/*
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: |
+        
+              🍁 注意事项：首次使用建议全新刷写
+          
+              💻 适用机型: 斐讯N1
+
+              📂 源码: ${{ env.REPO_URL }}
+
+              🌳 分支: ${{ env.REPO_BRANCH }}
+
+              ⏱️ 编译时间: $(date +"%Y年%m月%d日%H时%M分")
+
+              🌐 管理地址: 192.168.123.2
+
+              👤 用户名: root
+
+              🔒 密码: password 
+              
+    - name: 清理Actions空间
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          keep_minimum_runs: 0
+          retain_days: 15
         

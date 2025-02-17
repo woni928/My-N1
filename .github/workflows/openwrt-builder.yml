@@ -91,6 +91,29 @@ jobs:
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "compile_status=success" >> $GITHUB_ENV
 
+    - name: 清理磁盘空间
+      if: (!cancelled())
+      run: |
+        echo "清理之前："
+        df -hT
+        mkdir openwrt-armvirt
+        mkdir /workdir/upload
+        cp openwrt/bin/targets/*/*/*.tar.gz /workdir/upload/
+        mv openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/
+        echo -e "\n"
+        echo "列出空间占用前10的目录或文件："
+        sudo du -h --max-depth=1 /workdir |sort -nr | head -10
+        rm -rf /workdir/openwrt/
+        echo -e "\n"
+        echo "清理之后："
+        df -hT
+        echo -e "\n"
+        echo "/workdir路径文件"
+        ls -l
+        echo -e "\n"
+        echo "列出空间占用前10的目录或文件："
+        sudo du -h --max-depth=1 /workdir |sort -nr | head -10
+
     - name: 打包镜像文件
       if: ${{ env.compile_status }} == 'success' && !cancelled()
       uses: unifreq/openwrt_packit@master

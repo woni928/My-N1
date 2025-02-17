@@ -9,6 +9,14 @@ git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
 git clone  https://github.com/linkease/luci-app-linkease package/linkease
 git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
 
+git clone https://github.com/xiaorouji/openwrt-passwall2 --depth=1 package/passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall --depth=1 package/passwall
+git clone https://github.com/sbwml/luci-app-alist package/alist
+
+rm -rf feeds/packages/net/v2ray-geodata
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+
 # 加入OpenClash核心
 #chmod -R a+x $GITHUB_WORKSPACE/preset-clash-core.sh
 #$GITHUB_WORKSPACE/N1/preset-clash-core.sh
@@ -18,6 +26,13 @@ echo "
 CONFIG_PACKAGE_luci-app-amlogic=y
 CONFIG_PACKAGE_luci-app-linkease=y
 CONFIG_PACKAGE_luci-app-lucky=y
+CONFIG_PACKAGE_luci-app-passwall2=y
+CONFIG_PACKAGE_luci-app-passwall=y
+CONFIG_PACKAGE_luci-app-alist=y
+CONFIG_PACKAGE_luci-app-samba4=y
+CONFIG_PACKAGE_luci-app-softethervpn=y
+CONFIG_PACKAGE_luci-app-mosdns=y
+
 " >> .config
 
 # 修改默认IP

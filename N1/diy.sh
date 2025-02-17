@@ -32,7 +32,6 @@ CONFIG_PACKAGE_luci-app-alist=y
 CONFIG_PACKAGE_luci-app-samba4=y
 CONFIG_PACKAGE_luci-app-softethervpn=y
 CONFIG_PACKAGE_luci-app-mosdns=y
-
 " >> .config
 
 # 修改默认IP

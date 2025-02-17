@@ -100,7 +100,7 @@ jobs:
         PACKAGE_SOC: s905d
         GZIP_IMGS: .xz
         SCRIPT_DIY_PATH: N1/mk_s905d_n1.sh
-        WHOAMI: innmonkey
+        WHOAMI: woni928
         OPENWRT_VER: $(date +"%Y.%m.%d")
         SW_FLOWOFFLOAD: 0
         SFE_FLOW: 0

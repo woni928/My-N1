@@ -6,7 +6,7 @@
 
 # Add packages
 git clone --depth=1 https://github.com/ophub/luci-app-amlogic package/amlogic
-git clone  https://github.com/linkease/luci-app-linkease package/linkease
+#git clone  https://github.com/linkease/luci-app-linkease package/linkease
 git clone  https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 git clone https://github.com/xiaorouji/openwrt-passwall2 --depth=1 package/passwall2
@@ -24,7 +24,7 @@ git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 echo "
 # 插件
 CONFIG_PACKAGE_luci-app-amlogic=y
-CONFIG_PACKAGE_luci-app-linkease=y
+#CONFIG_PACKAGE_luci-app-linkease=y
 CONFIG_PACKAGE_luci-app-lucky=y
 CONFIG_PACKAGE_luci-app-passwall2=y
 CONFIG_PACKAGE_luci-app-passwall=y

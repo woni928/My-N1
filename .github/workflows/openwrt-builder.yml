@@ -56,6 +56,7 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH --single-branch --depth=1 openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
 
     - name: 更新 & 安装 feeds
       working-directory: ./openwrt
@@ -133,7 +134,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: OpenWrt-N1 → ${{ env.DATE }}
-        tag: N1-1907_${{ env.tag_name }}
+        tag: N1-2305_${{ env.tag_name }}
         artifacts: /workdir/upload/*
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}

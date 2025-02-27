@@ -12,9 +12,11 @@
 
 # Modify default IP 
 sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.123.2/g' package/base-files/luci2/bin/config_generate
 
 # 修改主机名
 sed -i 's/LEDE/OpenWrt/g' package/base-files/files/bin/config_generate
+sed -i 's/LEDE/OpenWrt/g' package/base-files/luci2/bin/config_generate
 
 # 拉取源码
 src-git kenzo https://github.com/kenzok8/openwrt-packages

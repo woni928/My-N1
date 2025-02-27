@@ -129,7 +129,7 @@ jobs:
             🔒 密码: password
           
             🍁 更新日志：
-                      2025-0227：测试自用的配置。
+               2025-0227：测试取消docker-ce。
 
     - name: Delete old releases
       uses: dev-drprasad/delete-older-releases@master

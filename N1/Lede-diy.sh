@@ -19,12 +19,12 @@ sed -i 's/LEDE/OpenWrt/g' package/base-files/files/bin/config_generate
 sed -i 's/LEDE/OpenWrt/g' package/base-files/luci2/bin/config_generate
 
 # 拉取源码
-src-git kenzo https://github.com/kenzok8/openwrt-packages
-src-git small https://github.com/kenzok8/small
-src-git packages https://github.com/coolsnowwolf/packages
-src-git luci https://github.com/coolsnowwolf/luci
-src-git routing https://github.com/coolsnowwolf/routing
-src-git telephony https://git.openwrt.org/feed/telephony.git
+#src-git kenzo https://github.com/kenzok8/openwrt-packages
+#src-git small https://github.com/kenzok8/small
+#src-git packages https://github.com/coolsnowwolf/packages
+#src-git luci https://github.com/coolsnowwolf/luci
+#src-git routing https://github.com/coolsnowwolf/routing
+#src-git telephony https://git.openwrt.org/feed/telephony.git
 
 
 # 临时修复acpid,aliyundrive-webdav,xfsprogs,perl-html-parser,v2dat 导致的编译失败问题

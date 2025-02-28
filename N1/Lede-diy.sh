@@ -19,7 +19,7 @@ sed -i 's/LEDE/OpenWrt/g' package/base-files/files/bin/config_generate
 sed -i 's/LEDE/OpenWrt/g' package/base-files/luci2/bin/config_generate
 
 # 删除可能冲突的插件
-rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
+#rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb}
 
 
 # 临时修复acpid,aliyundrive-webdav,xfsprogs,perl-html-parser,v2dat 导致的编译失败问题

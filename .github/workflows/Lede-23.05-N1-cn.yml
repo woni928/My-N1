@@ -1,4 +1,4 @@
-name: Lede-23.05-N1-中文2
+name: Lede-23.05-N1-cn
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: "0 0 1,16 * *"
+    #- cron: "0 0 1,16 * *"
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede

@@ -33,3 +33,7 @@ sed -i 's#GO_PKG_TARGET_VARS.*# #g' feeds/packages/utils/v2dat/Makefile
 rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+
+# 拉取passwall的依赖
+git clone https://github.com/xiaorouji/openwrt-passwall --depth=1 package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall2 --depth=1 package/passwall2

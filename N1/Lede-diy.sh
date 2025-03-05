@@ -37,5 +37,5 @@ git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/gola
 # 拉取passwall
 git clone https://github.com/xiaorouji/openwrt-passwall --depth=1 package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2 --depth=1 package/passwall2
-git clone https://github.com/xiaorouji/openwrt-passwall-packages --depth=1 package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall-packages --depth=1 package/passwall2
+git clone https://github.com/xiaorouji/openwrt-passwall-packages
+

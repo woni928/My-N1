@@ -21,7 +21,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: 检查流程
@@ -131,7 +131,7 @@ jobs:
             🔒 密码: password
           
             🍁 更新日志：
-               2025-0305：同步上游的跟新。
+               2025-0306：同步上游的跟新。
 
     - name: 删除旧的固件
       uses: dev-drprasad/delete-older-releases@master

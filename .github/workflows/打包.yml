@@ -1,0 +1,78 @@
+name: 打包
+on:
+  repository_dispatch:
+  workflow_dispatch:
+
+  #schedule:
+    #- cron: 0 16 * * 4
+
+env:
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-24.10
+  FEEDS_CONF: N1/immortalwrt/TL-feeds.conf.default
+  CONFIG_FILE: N1/immortalwrt/TL.config
+  DIY_P1_SH: N1/immortalwrt/diy-part1.sh
+  DIY_P2_SH: N1/immortalwrt/diy-part2.sh
+  FILES: N1/files
+  TZ: Asia/Shanghai
+  GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: 创建编译空间挂载点
+      run: |
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        
+    - name: 打包内核
+      uses: unifreq/openwrt_packit@master
+      env:
+        WHOAMI: ham
+       # OPENWRT_VER: R23.7.7
+        OPENWRT_ARMVIRT: https://github.com/woni928/N1-2025/releases/download/N1-24.10_20250312/immortalwrt-armsr-armv8-generic-rootfs.tar.gz
+        PACKAGE_SOC: s905d
+        KERNEL_AUTO_LATEST: true
+       # KERNEL_REPO_URL: https://github.com/ham0223/OpenWRT-N1/tree/main/opt
+        KERNEL_REPO_URL: breakingbadboy/OpenWrt
+        KERNEL_VERSION_NAME: 6.6.y
+        
+    - name: 整理文件
+      run: rm /opt/openwrt_packit/output/immorta* ; mv /opt/openwrt_packit/output/* /workdir/upload/
+
+    - name: 发布固件
+      uses: ncipollo/release-action@v1
+      with:
+        name: OpenWrt-N1 → ${{ env.DATE }}
+        tag: N1-24.10_${{ env.tag_name }}
+        artifacts: /workdir/upload/*
+        allowUpdates: true
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: |
+              ---  使用说明 ---
+              源码: ${{ env.REPO_URL }}
+              分支: ${{ env.REPO_BRANCH }}
+              网关：192.168.123.2
+              用户名：root
+              密码：password
+              
+              更新说明：
+              2025-0312：测试passwall的依赖是否全部安装，软件源是否正确，是否删除immorta*固件文件。
+              只打包
+
+    - name: 删除运行记录
+      uses: Mattraks/delete-workflow-runs@main
+      with:
+        retain_days: 3
+        keep_minimum_runs: 5
+        token: ${{ env.GITHUB_TOKEN }}
+
+    - name: 删除自动发布的旧固件
+      uses: dev-drprasad/delete-older-releases@master
+      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        keep_latest: 7
+        delete_tags : true
+        

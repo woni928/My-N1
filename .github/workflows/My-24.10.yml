@@ -166,7 +166,8 @@ jobs:
         KERNEL_VERSION_NAME: 6.6.y
         
     - name: 整理文件
-      run: rm /opt/openwrt_packit/output/immorta* ; mv /opt/openwrt_packit/output/* /workdir/upload/
+      run: rm -f /opt/openwrt_packit/output/immortalwrt* ; mv /opt/openwrt_packit/output/* /workdir/upload/
+      
 
     - name: 发布固件
       uses: ncipollo/release-action@v1

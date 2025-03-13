@@ -47,7 +47,7 @@ jobs:
       with:
         name: OpenWrt-N1 → ${{ env.DATE }}
         tag: N1-24.10_${{ env.tag_name }}
-        artifacts: /workdir/upload/*
+        artifacts: /workdir/upload/openwrt*
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
         body: |
@@ -59,8 +59,8 @@ jobs:
               密码：password
               
               更新说明：
-              2025-0312：测试passwall的依赖是否全部安装，软件源是否正确，是否删除immorta*固件文件。
-              只打包
+              2025-0313：测试passwall的依赖是否全部安装，软件源是否正确，是否删除immorta*固件文件。
+              只打包测试
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@main

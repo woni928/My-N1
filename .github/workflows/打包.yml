@@ -40,14 +40,14 @@ jobs:
         KERNEL_VERSION_NAME: 6.6.y
         
     - name: 整理文件
-      run: mkdir -p /workdir/upload ; rm -f /opt/openwrt_packit/output/immortalwrt* ; mv /opt/openwrt_packit/output/* /workdir/upload/
+      run: mv /opt/openwrt_packit/output/* /workdir/upload/
 
     - name: 发布固件
       uses: ncipollo/release-action@v1
       with:
         name: OpenWrt-N1 → ${{ env.DATE }}
         tag: N1-24.10_${{ env.tag_name }}
-        artifacts: /workdir/upload/openwrt*
+        artifacts: /workdir/upload/openwrt_s905d*
         allowUpdates: true
         token: ${{ secrets.GITHUB_TOKEN }}
         body: |
@@ -60,7 +60,7 @@ jobs:
               
               更新说明：
               2025-0313：测试passwall的依赖是否全部安装，软件源是否正确，是否删除immorta*固件文件。
-              只打包测试
+              只打包测试-
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@main

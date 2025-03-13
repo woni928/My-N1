@@ -186,7 +186,7 @@ jobs:
               密码：password
               
               更新说明：
-              2025-0313：测试passwall的依赖是否全部安装，软件源是否正确，主题是否设置为默认。
+              2025-0313：测试passwall的依赖是否全部安装，软件源是否正确，固件是否删除。
 
     - name: 删除运行记录
       uses: Mattraks/delete-workflow-runs@main
